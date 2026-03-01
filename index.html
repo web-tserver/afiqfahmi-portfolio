@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Afiq Fahmi · Creative Designer</title>
+  <!-- Google Fonts & iconify -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..800&display=swap" rel="stylesheet">
+  <style>
+    /* ----- reset & base (cyan accent, improved contrast) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #eaf0f6;
+      color: #0a1a2b;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    :root {
+      --accent: #00ffff;
+      --accent-dark: #00c0c0;
+      --card-bg: #ffffff;
+      --sidebar-bg: #ffffff;
+      --border-light: #d0e0eb;
+      --text-dark: #0a1a2b;
+      --text-muted: #1e3a5f;
+      --glow: 0 0 12px rgba(0, 255, 255, 0.5);
+    }
+
+    /* layout: sidebar + main with auto margin */
+    .portfolio-wrapper {
+      display: flex;
+      min-height: 100vh;
+      max-width: 1400px;
+      margin: 0 auto;
+      background: #ffffff;
+      box-shadow: 0 20px 40px -10px rgba(0,20,40,0.1);
+    }
+
+    /* --- SIDEBAR --- */
+    .sidebar {
+      flex: 0 0 340px;
+      background: var(--sidebar-bg);
+      padding: 2rem 1.5rem;
+      border-right: 1px solid var(--border-light);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .profile h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-dark);
+      margin-bottom: 0.3rem;
+    }
+
+    .profile .title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.8rem;
+    }
+
+    /* intro line – static, no animation */
+    .intro-line {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: #f0f9ff;
+      padding: 1rem 1.2rem;
+      border-radius: 20px;
+      border-left: 4px solid var(--accent);
+      margin: 0.2rem 0 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,255,255,0.1);
+      white-space: normal;
+      width: 100%;
+    }
+
+    .contact-info {
+      margin: 0.2rem 0 0.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      margin-bottom: 0.8rem;
+      transition: 0.2s;
+      cursor: pointer;
+      padding: 0.2rem 0;
+      border-bottom: 1px dashed transparent;
+    }
+
+    .contact-item:hover {
+      color: var(--accent-dark);
+      border-bottom-color: var(--accent);
+      transform: translateX(5px);
+      text-shadow: 0 0 6px cyan;
+    }
+
+    .contact-item img {
+      width: 20px;
+      height: 20px;
+      opacity: 0.8;
+      filter: brightness(0.2) sepia(1) hue-rotate(140deg) saturate(5);
+    }
+
+    /* skill pills */
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.8rem 0 0.5rem;
+    }
+
+    .skill-chip {
+      background: #ecf3fa;
+      color: var(--text-dark);
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: 0.2s;
+      border: 1px solid transparent;
+    }
+    .skill-chip:hover {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent-dark);
+      transform: scale(1.05);
+      box-shadow: var(--glow);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.6rem;
+      margin: 0.5rem 0 1rem;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      padding: 0.7rem;
+      background: #ecf3fa;
+      border-radius: 14px;
+      transition: 0.2s;
+      position: relative;
+    }
+    .social-links a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .social-links a:hover {
+      background: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: var(--glow);
+    }
+    .social-links a:hover img {
+      filter: brightness(0) invert(0);
+    }
+    .social-links img {
+      width: 20px;
+      height: 20px;
+      opacity: 0.8;
+    }
+
+    /* skills grid (three cards) - scroll animation base */
+    .skills-grid-sidebar {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin: 0.5rem 0 0.5rem;
+    }
+
+    .skill-card {
+      background: #f9fdff;
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 1.2rem;
+      transition: 0.2s;
+      /* scroll animation base */
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+    .skill-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+      transform: translateY(-3px);
+    }
+    .skill-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-dark);
+    }
+    .skill-card ul {
+      list-style: none;
+    }
+    .skill-card li {
+      font-size: 0.85rem;
+      padding: 0.3rem 0;
+      color: var(--text-muted);
+      border-bottom: 1px dashed #d5e5f0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .skill-card li img {
+      width: 18px;
+      opacity: 0.8;
+      filter: brightness(0.3) sepia(1) hue-rotate(140deg) saturate(4);
+    }
+
+    /* CV button */
+    .cv-btn {
+      display: inline-block;
+      background: transparent;
+      color: var(--text-dark);
+      font-weight: 600;
+      padding: 0.6rem 1rem;
+      border-radius: 50px;
+      border: 2px solid var(--accent);
+      text-align: center;
+      transition: 0.2s;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .cv-btn:hover {
+      background: var(--accent);
+      color: #000;
+      box-shadow: var(--glow);
+      transform: translateY(-2px);
+    }
+
+    /* pulse animation on CTA button */
+    .sidebar .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #001122;
+      font-weight: 800;
+      padding: 1rem 1.2rem;
+      border-radius: 50px;
+      text-align: center;
+      transition: 0.25s;
+      border: none;
+      cursor: pointer;
+      margin-top: 0.8rem;
+      font-size: 1rem;
+      box-shadow: 0 2px 10px rgba(0,255,255,0.3);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0,255,255,0.7); }
+      70% { box-shadow: 0 0 0 12px rgba(0,255,255,0); }
+      100% { box-shadow: 0 0 0 0 rgba(0,255,255,0); }
+    }
+    .sidebar .btn:active { transform: scale(0.97); animation: none; }
+    .sidebar .btn:hover {
+      background: #00e0e0;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px -8px cyan;
+      animation: none;
+    }
+
+    /* --- MAIN CONTENT (animated gradient) --- */
+    .main-content {
+      flex: 1;
+      padding: 3rem 2.5rem;
+      overflow-y: auto;
+      background: #ffffff;
+      background-image: radial-gradient(circle at 10% 20%, rgba(0,255,255,0.02) 0%, transparent 40%),
+                        linear-gradient(45deg, rgba(0,255,255,0.01) 0%, rgba(255,255,255,0) 70%);
+      background-size: 200% 200%;
+      animation: gradientShift 10s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    /* section base style */
+    .section {
+      margin-bottom: 3.5rem;
+    }
+
+    /* scroll animation base for all elements with class .scroll-reveal */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* staggered delays for cards */
+    .skill-card:nth-child(1) { transition-delay: 0.1s; }
+    .skill-card:nth-child(2) { transition-delay: 0.2s; }
+    .skill-card:nth-child(3) { transition-delay: 0.3s; }
+
+    .project-card {
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+    }
+    .project-card:nth-child(1) { transition-delay: 0.05s; }
+    .project-card:nth-child(2) { transition-delay: 0.1s; }
+    .project-card:nth-child(3) { transition-delay: 0.15s; }
+    .project-card:nth-child(4) { transition-delay: 0.2s; }
+    .project-card:nth-child(5) { transition-delay: 0.25s; }
+    .project-card:nth-child(6) { transition-delay: 0.3s; }
+    .project-card:nth-child(7) { transition-delay: 0.35s; }
+    .project-card:nth-child(8) { transition-delay: 0.4s; }
+
+    .section-title {
+      transition-delay: 0.1s;
+    }
+
+    .filter-bar {
+      transition-delay: 0.15s;
+    }
+
+    /* section title style */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-title span {
+      background: var(--accent);
+      width: 8px;
+      height: 32px;
+      border-radius: 20px;
+      display: inline-block;
+      box-shadow: var(--glow);
+      animation: glowPulse 2s infinite;
+    }
+    @keyframes glowPulse {
+      0% { box-shadow: 0 0 5px cyan; }
+      50% { box-shadow: 0 0 20px cyan; }
+      100% { box-shadow: 0 0 5px cyan; }
+    }
+
+    /* filter bar */
+    .filter-bar {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin: 1rem 0 2rem;
+    }
+    .filter-btn {
+      background: #ecf3fa;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: 0.2s;
+      border: 1px solid transparent;
+    }
+    .filter-btn.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent-dark);
+    }
+    .filter-btn:hover {
+      background: var(--accent);
+      color: #000;
+      box-shadow: var(--glow);
+    }
+
+    /* project grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 2rem 1.5rem;
+      margin-top: 1rem;
+    }
+
+    /* skeleton loading effect for images */
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s ease;
+      transform: translateZ(30px) scale(1.02);
+      background: #d0e0eb;
+    }
+
+    .project-card {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #ffffff;
+      aspect-ratio: 4/5;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      perspective: 1400px;
+      will-change: transform;
+      border: 1px solid rgba(0, 255, 255, 0.1);
+      box-shadow: 0 10px 20px -12px rgba(0,0,0,0.1);
+    }
+    .project-card:hover {
+      transform: translateY(-10px) rotateX(2deg) rotateY(2deg);
+      box-shadow: 0 25px 35px -8px rgba(0, 255, 255, 0.4);
+      border-color: var(--accent);
+    }
+    .project-card:hover img {
+      transform: translateZ(50px) scale(1.12);
+    }
+
+    /* metallic shine */
+    .project-card::after {
+      content: "";
+      position: absolute;
+      top: -40%;
+      left: -150%;
+      width: 70%;
+      height: 200%;
+      background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.2) 35%, rgba(255,255,255,0.8) 48%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.8) 52%, rgba(255,255,255,0.2) 65%, transparent 100%);
+      transform: skewX(-25deg);
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0;
+      filter: blur(2px);
+    }
+    .project-card:hover::after {
+      animation: metallicShine 0.8s forwards;
+      opacity: 1;
+    }
+    @keyframes metallicShine { to { left: 180%; } }
+
+    /* spotlight overlay */
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 4;
+      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0, 255, 255, 0.2), transparent 70%);
+    }
+    .project-card:hover::before { opacity: 1; }
+
+    /* hover overlay with "View project" */
+    .project-card .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,20,30,0.7);
+      backdrop-filter: blur(2px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 6;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .project-card:hover .overlay { opacity: 1; }
+
+    .project-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: var(--accent);
+      color: #001122;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 0.4rem 1rem;
+      border-radius: 60px;
+      z-index: 5;
+      transform: translateZ(60px);
+      box-shadow: var(--glow);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .project-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem 1rem 1rem;
+      background: linear-gradient(transparent, rgba(0, 20, 30, 0.85) 80%);
+      z-index: 4;
+      transform: translateZ(40px);
+      color: white;
+      backdrop-filter: blur(2px);
+    }
+    .project-info h4 {
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-bottom: 0.2rem;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      line-height: 1.3;
+    }
+    .project-info p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 0.5rem;
+    }
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .project-tag {
+      background: rgba(0, 255, 255, 0.25);
+      backdrop-filter: blur(2px);
+      font-size: 0.65rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    /* lightbox modal */
+    #imageModal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,20,30,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 10001;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+      padding: 20px;
+      animation: modalFadeIn 0.3s;
+    }
+    @keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    #imageModal.show { display: flex; }
+    #modalImg {
+      max-width: 95%;
+      max-height: 90vh;
+      border-radius: 24px;
+      box-shadow: 0 0 50px cyan;
+      transform: scale(0.95);
+      transition: transform 0.2s ease;
+      border: 2px solid cyan;
+    }
+    #imageModal.show #modalImg { transform: scale(1); }
+
+    /* contact modal */
+    #contactModal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      z-index: 10002;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      animation: modalFadeIn 0.3s;
+    }
+    #contactModal.show { display: flex; }
+    .modal-content {
+      background: white;
+      max-width: 400px;
+      width: 90%;
+      padding: 2rem;
+      border-radius: 32px;
+      box-shadow: 0 20px 40px rgba(0,255,255,0.3);
+      transform: scale(0.9);
+      animation: modalPop 0.3s forwards;
+    }
+    @keyframes modalPop { to { transform: scale(1); } }
+    .modal-content h3 { margin-bottom: 1rem; }
+    .modal-content input, .modal-content textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      font-family: inherit;
+    }
+    .modal-content button {
+      background: var(--accent);
+      color: #000;
+      font-weight: 700;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 40px;
+      width: 100%;
+      cursor: pointer;
+    }
+    .close-modal {
+      float: right;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* scroll to top */
+    #scrollTop {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--accent);
+      color: #000;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--glow);
+      border: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1000;
+    }
+    #scrollTop.visible { opacity: 1; }
+
+    /* footer */
+    .footer-note {
+      border-top: 1px solid var(--border-light);
+      margin-top: 3rem;
+      padding-top: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* === responsive layout optimization === */
+    @media (max-width: 900px) {
+      .portfolio-wrapper {
+        flex-direction: column;
+        margin: 0 1rem;
+      }
+      .sidebar {
+        flex: auto;
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+        padding: 1.5rem;
+      }
+      .main-content {
+        padding: 2rem 1.5rem;
+      }
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .portfolio-wrapper {
+        margin: 0 0.5rem;
+      }
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        padding: 1.2rem;
+      }
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+
+    /* --- PRELOADER (simplified, bold text) --- */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.4s ease;
+      text-align: center;
+      flex-direction: column;
+    }
+    #preloader.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .preloader-content {
+      max-width: 90%;
+    }
+    .preloader-content .line1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #111;
+      margin-bottom: 0.2rem;
+      text-transform: uppercase;
+    }
+    .preloader-content .line2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent-dark);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+    .preloader-content .line2::after {
+      content: '.';
+    }
+    .preloader-content .domain {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #555;
+      border-top: 1px solid #eee;
+      padding-top: 1rem;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+    /* loading bar – simple */
+    .loading-bar-container {
+      width: 260px;
+      height: 4px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      margin: 1rem auto 0;
+      overflow: hidden;
+    }
+    .loading-bar {
+      width: 0%;
+      height: 100%;
+      background: var(--accent);
+      border-radius: 10px;
+      transition: width 0.1s linear;
+      box-shadow: var(--glow);
+    }
+
+    /* accessibility focus */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <!-- PRELOADER (bold text) -->
+  <div id="preloader">
+    <div class="preloader-content">
+      <div class="line1">WELCOME TO</div>
+      <div class="line2">MY PORTFOLIO</div>
+      <div class="domain">Afiq Fahmi · Creative Designer</div>
+      <div class="loading-bar-container">
+        <div class="loading-bar" id="loadingBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX MODAL -->
+  <div id="imageModal"><img id="modalImg" src="" alt=""></div>
+
+  <!-- CONTACT MODAL -->
+  <div id="contactModal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeContactModal()">&times;</span>
+      <h3>Send a quick message</h3>
+      <input type="text" placeholder="Your name" id="contactName">
+      <input type="email" placeholder="Your email" id="contactEmail">
+      <textarea placeholder="Message" rows="3" id="contactMessage"></textarea>
+      <button onclick="sendMessage()">Send via WhatsApp</button>
+    </div>
+  </div>
+
+  <!-- SCROLL TO TOP -->
+  <div id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+  <div class="portfolio-wrapper">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="profile">
+        <h1>Afiq Fahmi</h1>
+        <div class="title">Creative Designer</div>
+      </div>
+
+      <!-- intro line – static -->
+      <div class="intro-line">
+        👋 Hi, I’m Afiq Fahmi – Creative Designer focused on Branding & Digital Marketing. I help brands grow with strong visuals, content & strategy.
+      </div>
+
+      <div class="contact-info">
+        <a class="contact-item" href="tel:+60199083295" aria-label="Call +60199083295">
+          <img src="https://api.iconify.design/mdi/phone.svg" alt=""> 019-9083295
+        </a>
+        <a class="contact-item" href="mailto:Afqfahmi0013@gmail.com" aria-label="Email Afqfahmi0013@gmail.com">
+          <img src="https://api.iconify.design/mdi/email.svg" alt=""> Afqfahmi0013@gmail.com
+        </a>
+        <a class="contact-item" href="https://maps.google.com/?q=Setia+Alam+Shah+Alam" target="_blank" aria-label="Location Setia Alam">
+          <img src="https://api.iconify.design/mdi/map-marker.svg" alt=""> Setia Alam, Shah Alam
+        </a>
+      </div>
+
+      <!-- skill pills -->
+      <div class="skill-chips">
+        <span class="skill-chip">Photoshop</span>
+        <span class="skill-chip">Illustrator</span>
+        <span class="skill-chip">Canva</span>
+        <span class="skill-chip">Premiere Pro</span>
+        <span class="skill-chip">CapCut</span>
+        <span class="skill-chip">Branding</span>
+        <span class="skill-chip">Print</span>
+      </div>
+
+      <!-- social links -->
+      <div class="social-links">
+        <a href="#" aria-label="Instagram"><img src="https://api.iconify.design/simple-icons/instagram.svg" alt=""></a>
+        <a href="#" aria-label="Facebook"><img src="https://api.iconify.design/simple-icons/facebook.svg" alt=""></a>
+        <a href="#" aria-label="Threads"><img src="https://api.iconify.design/simple-icons/threads.svg" alt=""></a>
+        <a href="#" aria-label="LinkedIn"><img src="https://api.iconify.design/simple-icons/linkedin.svg" alt=""></a>
+        <a href="https://wa.me/60199083295" aria-label="WhatsApp"><img src="https://api.iconify.design/simple-icons/whatsapp.svg" alt=""></a>
+      </div>
+
+      <!-- skills grid (three cards) - scroll reveal -->
+      <div class="skills-grid-sidebar">
+        <div class="skill-card scroll-reveal">
+          <h3><img src="https://api.iconify.design/mdi/brush.svg" width="20" alt=""> Editing tools</h3>
+          <ul>
+            <li><img src="https://api.iconify.design/simple-icons/adobephotoshop.svg" alt=""> Photoshop</li>
+            <li><img src="https://api.iconify.design/simple-icons/adobeillustrator.svg" alt=""> Illustrator</li>
+            <li><img src="https://api.iconify.design/simple-icons/canva.svg" alt=""> Canva</li>
+            <li><img src="https://api.iconify.design/simple-icons/adobepremierepro.svg" alt=""> Premiere Pro</li>
+            <li><img src="https://cdn.simpleicons.org/capcut" alt="" style="filter: brightness(0.3) sepia(1) hue-rotate(140deg) saturate(4);"> CapCut</li>
+          </ul>
+        </div>
+        <div class="skill-card scroll-reveal">
+          <h3><img src="https://api.iconify.design/mdi/palette.svg" width="20" alt=""> Design expertise</h3>
+          <ul>
+            <li>Branding & Logo Design</li>
+            <li>Print (CMYK, bleed, cutting)</li>
+            <li>Apparel (sublimation, silkscreen)</li>
+            <li>Social Media Creative</li>
+          </ul>
+        </div>
+        <div class="skill-card scroll-reveal">
+          <h3><img src="https://api.iconify.design/mdi/video.svg" width="20" alt=""> Media</h3>
+          <ul>
+            <li>Photo retouching & manipulation</li>
+            <li>Video editing & color grading</li>
+            <li>Basic video shooting</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CV download -->
+      <a href="#" class="cv-btn" download>📄 Download CV (PDF)</a>
+
+      <!-- WhatsApp CTA + contact modal trigger (with pulse) -->
+      <button class="btn" id="sidebarCta" onclick="openContactModal()">📥 Hire me</button>
+    </aside>
+
+    <!-- MAIN CONTENT (portfolio) -->
+    <main class="main-content">
+      <section class="section" id="projects">
+        <div class="section-title scroll-reveal"><span></span>Portfolio</div>
+        <div class="filter-bar scroll-reveal" id="filterBar">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="branding">Branding</button>
+          <button class="filter-btn" data-filter="apparel">Apparel</button>
+          <button class="filter-btn" data-filter="print">Print</button>
+          <button class="filter-btn" data-filter="digital">Digital</button>
+        </div>
+        <div class="projects-grid" id="gallery">
+          <!-- 8 project cards with relative paths (GitHub friendly) and scroll reveal -->
+          <div class="project-card tilt-card scroll-reveal" data-category="branding" onclick="openLightbox('./Branding1.webp')">
+            <span class="project-badge">branding</span>
+            <img src="./Branding1.webp" alt="Kidz Studios rebrand project" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&auto=format'">
+            <div class="overlay">View project</div>
+            <div class="project-info">
+              <h4>Kidz Studios rebrand</h4>
+              <p>Logo, stationery, guidelines</p>
+              <div class="project-tags"><span class="project-tag">branding</span><span class="project-tag">print</span></div>
+            </div>
+          </div>
+          <div class="project-card tilt-card scroll-reveal" data-category="apparel" onclick="openLightbox('./Apparel1.webp')">
+            <span class="project-badge">apparel</span>
+            <img src="./Apparel1.webp" alt="Sublimation jersey for esports team" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1562157873-818bc0726f68?w=600&auto=format'">
+            <div class="overlay">View project</div>
+            <div class="project-info">
+              <h4>Sublimation jersey</h4>
+              <p>Esports team set</p>
+              <div class="project-tags"><span class="project-tag">apparel</span><span class="project-tag">production</span></div>
+            </div>
+          </div>
+          <div class="project-card tilt-card scroll-reveal" data-category="print" onclick="openLightbox('./Print1.webp')">
+            <span class="project-badge">print</span>
+            <img src="./Print1.webp" alt="Brochure and flyer set" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=600&auto=format'">
+            <div class="overlay">View project</div>
+            <div class="project-info">
+              <h4>Brochure & flyer set</h4>
+              <p>CMYK, ready for print</p>
+              <div class="project-tags"><span class="project-tag">print</span><span class="project-tag">marketing</span></div>
+            </div>
+          </div>
+          <div class="project-card tilt-card scroll-reveal" data-category="digital" onclick="openLightbox('./Digital1.webp')">
+            <span class="project-badge">social</span>
+            <img src="./Digital1.webp" alt="Social media campaign" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&auto=format'">
+            <div class="overlay">View project</div>
+            <div class="project-info">
+              <h4>Social media campaign</h4>
+              <p>Instagram & FB creatives</p>
+              <div class="project-tags"><span class="project-tag">digital</span><span class="project-tag">social</span></div>
+            </div>
+          </div>
+          <div class="project-card tilt-card scroll-reveal" data-category="print" onclick="openLightbox('./Print2.webp')">
+            <span class="project-badge">packaging</span>
+            <img src="./Print2.webp" alt="Product box design" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&auto=format'">
+            <div class="overlay">View project</div>
+            <div class="project-info">
+              <h4>Product box design</h4>
+              <p>Eco-friendly packaging</p>
+              <div class="project-tags"><span class="project-tag">packaging</span><span class="project-tag">print</span></div>
+            </div>
+          </div>
+          <div class="project-card tilt-card scroll-reveal" data-category="digital" onclick="openLightbox('./Digital2.webp')">
+            <span class="project-badge">illustration</span>
+            <img src="./Digital2.webp" alt="Character series" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1634712282287-14ed57b9cc89?w=600&auto=format'">
+            <div class="overlay">View project</div>
+            <div class="project-info">
+              <h4>Character series</h4>
+              <p>Digital illustrations</p>
+              <div class="project-tags"><span class="project-tag">art</span><span class="project-tag">vector</span></div>
+            </div>
+          </div>
+          <div class="project-card tilt-card scroll-reveal" data-category="digital" onclick="openLightbox('./Digital3.webp')">
+            <span class="project-badge">motion</span>
+            <img src="./Digital3.webp" alt="Explainer video" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1545235617-9465d2a55698?w=600&auto=format'">
+            <div class="overlay">View project</div>
+            <div class="project-info">
+              <h4>Explainer video</h4>
+              <p>After effects loop</p>
+              <div class="project-tags"><span class="project-tag">video</span><span class="project-tag">motion</span></div>
+            </div>
+          </div>
+          <div class="project-card tilt-card scroll-reveal" data-category="digital" onclick="openLightbox('./Digital4.webp')">
+            <span class="project-badge">ui/ux</span>
+            <img src="./Digital4.webp" alt="Mobile app design" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1557821552-17105176677c?w=600&auto=format'">
+            <div class="overlay">View project</div>
+            <div class="project-info">
+              <h4>Mobile app design</h4>
+              <p>E‑commerce concept</p>
+              <div class="project-tags"><span class="project-tag">ui</span><span class="project-tag">figma</span></div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:0.8rem; color:#5f7d9c; margin-top:1rem;">* Place your own Branding1.webp, Apparel1.webp, etc. in the same folder. Fallback Unsplash images shown if files missing.</p>
+      </section>
+
+      <div class="footer-note">
+        © 2026 Afiq Fahmi · 019-9083295 · Afqfahmi0013@gmail.com
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // --- LIGHTBOX ---
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    function openLightbox(src) {
+      modalImg.src = src;
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+    modal.onclick = function() {
+      modal.classList.remove('show');
+      document.body.style.overflow = 'auto';
+    };
+
+    // --- CONTACT MODAL ---
+    const contactModal = document.getElementById('contactModal');
+    function openContactModal() {
+      contactModal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeContactModal() {
+      contactModal.classList.remove('show');
+      document.body.style.overflow = 'auto';
+    }
+    window.sendMessage = function() {
+      const name = document.getElementById('contactName').value;
+      const email = document.getElementById('contactEmail').value;
+      const msg = document.getElementById('contactMessage').value;
+      const text = `Hi Afiq, my name is ${name} (${email}). Message: ${msg}`;
+      window.location.href = 'https://wa.me/60199083295?text=' + encodeURIComponent(text);
+      closeContactModal();
+    };
+
+    // --- FILTER FUNCTIONALITY ---
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projects = document.querySelectorAll('.project-card');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        projects.forEach(proj => {
+          proj.style.display = (filter === 'all' || proj.dataset.category === filter) ? 'block' : 'none';
+        });
+      });
+    });
+
+    // --- SCROLL TO TOP BUTTON ---
+    const scrollBtn = document.getElementById('scrollTop');
+    window.addEventListener('scroll', () => {
+      scrollBtn.classList.toggle('visible', window.scrollY > 300);
+    });
+
+    // --- 3D TILT (limit rotation) ---
+    const tiltCards = document.querySelectorAll('.tilt-card');
+    if (tiltCards.length) {
+      tiltCards.forEach(card => {
+        if ('ontouchstart' in window) return;
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = -(y - centerY) / 15;
+          const rotateY = (x - centerX) / 15;
+          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+          card.style.setProperty('--x', `${x}px`);
+          card.style.setProperty('--y', `${y}px`);
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = `rotateX(0deg) rotateY(0deg) translateY(0px)`;
+        });
+      });
+    }
+
+    // --- SCROLL REVEAL ANIMATION (Intersection Observer) ---
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          // Optionally unobserve after reveal to improve performance
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' }); // trigger when 10% visible
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // --- PRELOADER (time-based fill over 2 seconds, then fade out) ---
+    (function() {
+      const preloader = document.getElementById('preloader');
+      const loadingBar = document.getElementById('loadingBar');
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 1; // 1% each 20ms -> 2 seconds for 100%
+        if (progress >= 100) {
+          progress = 100;
+          loadingBar.style.width = progress + '%';
+          clearInterval(interval);
+          setTimeout(() => {
+            preloader.classList.add('hide');
+          }, 300);
+        } else {
+          loadingBar.style.width = progress + '%';
+        }
+      }, 20); // 20ms * 100 = 2000ms
+      // fallback timeout
+      setTimeout(() => {
+        preloader.classList.add('hide');
+      }, 3000);
+    })();
+  </script>
+</body>
+</html>
