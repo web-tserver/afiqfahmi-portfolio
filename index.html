@@ -173,7 +173,7 @@
     .btn-secondary { background: transparent; color: var(--text-main); border: 1px solid var(--border); margin-top: 10px; }
     .btn-secondary:hover { background: #111111; border-color: var(--text-muted); }
 
-    /* ----- 4. MAIN CONTENT & GALLERY (enhanced 1:1 grid + blur loading) ----- */
+    /* ----- 4. MAIN CONTENT & GALLERY (1:1 grid, blur loading) ----- */
     .main-content {
       flex: 1;
       padding: 4rem 3rem;
@@ -196,7 +196,6 @@
       border-radius: 4px;
     }
 
-    /* filter tabs - default (desktop) wrap */
     .filter-tabs {
       display: flex;
       flex-wrap: wrap;
@@ -225,7 +224,6 @@
       border-color: var(--text-muted);
     }
 
-    /* 1:1 square grid with blur loading */
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -281,7 +279,7 @@
       opacity: 1;
     }
 
-    /* ----- 5. LIGHTBOX MODAL ----- */
+    /* Lightbox */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -328,7 +326,7 @@
     }
     .close-btn:hover { color: var(--text-muted); transform: rotate(90deg); }
 
-    /* ----- 6. PRELOADER ----- */
+    /* Preloader */
     .preloader {
       position: fixed;
       inset: 0;
@@ -346,7 +344,7 @@
     .loader-bar-wrap { width: 200px; height: 3px; background: #333333; border-radius: 3px; overflow: hidden; }
     .loader-bar { height: 100%; background: #ffffff; width: 0%; transition: width 0.1s; }
 
-    /* ----- 7. RESPONSIVE DESIGN: categories fully visible on mobile (wrap) ----- */
+    /* Responsive */
     @media (max-width: 1024px) {
       .app-container { flex-direction: column; }
       .sidebar { 
@@ -373,8 +371,6 @@
       .profile-header h1 { font-size: 1.8rem; }
       .main-content { padding: 1.5rem; }
       .section-title { font-size: 1.8rem; margin-bottom: 1.2rem; }
-      
-      /* CRITICAL: categories wrap to multiple rows so all are fully visible without horizontal scroll */
       .filter-tabs {
         flex-wrap: wrap;
         gap: 10px;
@@ -388,7 +384,6 @@
         white-space: nowrap;
         flex-shrink: 0;
       }
-      
       .gallery-grid { 
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
         gap: 16px; 
@@ -397,17 +392,9 @@
     }
 
     @media (max-width: 480px) {
-      .filter-tabs {
-        gap: 8px;
-      }
-      .tab {
-        padding: 6px 14px;
-        font-size: 0.75rem;
-      }
-      .gallery-grid { 
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 12px;
-      }
+      .filter-tabs { gap: 8px; }
+      .tab { padding: 6px 14px; font-size: 0.75rem; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     }
   </style>
 </head>
@@ -427,7 +414,7 @@
 
   <div class="app-container">
     
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR (unchanged) -->
     <aside class="sidebar">
       <div class="sidebar-wrapper">
         
@@ -484,44 +471,84 @@
             <a href="#"><img src="https://api.iconify.design/simple-icons/behance.svg" alt="BE"></a>
             <a href="https://wa.me/60199083295?text=Hi%20Afiq%2C%20I%27m%20interested%20in%20working%20with%20you."><img src="https://api.iconify.design/simple-icons/whatsapp.svg" alt="WA"></a>
           </div>
-          <!-- Hire Me button directly to WhatsApp -->
           <a href="https://wa.me/60199083295?text=Hi%20Afiq%2C%20I%27m%20interested%20in%20working%20with%20you.%20Let%27s%20discuss%20my%20project." class="btn-primary" style="display: block; text-align: center;">📥 Hire Me →</a>
         </div>
 
       </div>
     </aside>
 
-    <!-- MAIN CONTENT – GALLERY -->
+    <!-- MAIN CONTENT – GALLERY WITH LOCAL IMAGES -->
     <main class="main-content">
       <h2 class="section-title">Selected Works</h2>
-      
-      <!-- Category tabs will be injected here -->
       <div class="filter-tabs" id="filterContainer"></div>
-
       <div class="gallery-grid" id="galleryGrid"></div>
     </main>
 
   </div>
 
   <script>
-    // ------------- GALLERY DATA (high-quality unsplash images, 1:1) -------------
-    const portfolioItems = [
-      { category: "Brand Identity", src: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=800&fit=crop&auto=format", alt: "Bloom Cosmetics – brand identity" },
-      { category: "Brand Identity", src: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=800&h=800&fit=crop&auto=format", alt: "Nebula Festival – visual identity" },
-      { category: "Brand Identity", src: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&h=800&fit=crop&auto=format", alt: "Nomad Studio – stationery" },
-      { category: "Brand Identity", src: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&h=800&fit=crop&auto=format", alt: "Elysian Drinks – packaging" },
-      { category: "UI/UX", src: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=800&h=800&fit=crop&auto=format", alt: "Finance App – UI/UX concept" },
-      { category: "UI/UX", src: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&h=800&fit=crop&auto=format", alt: "E-commerce dashboard" },
-      { category: "UI/UX", src: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=800&fit=crop&auto=format", alt: "Mobile app wireframes" },
-      { category: "Print Design", src: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&h=800&fit=crop&auto=format", alt: "Magazine spread" },
-      { category: "Print Design", src: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&h=800&fit=crop&auto=format", alt: "Product catalog" },
-      { category: "Print Design", src: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800&h=800&fit=crop&auto=format", alt: "Brochure set" },
-      { category: "Social Media", src: "https://images.unsplash.com/photo-1613909207039-6b173b755cc1?w=800&h=800&fit=crop&auto=format", alt: "Instagram carousel" },
-      { category: "Social Media", src: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=800&fit=crop&auto=format", alt: "Facebook ad creative" },
-      { category: "Social Media", src: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=800&h=800&fit=crop&auto=format", alt: "LinkedIn banner" }
-    ];
+    // --------------------------------------------------------------
+    // LOCAL IMAGE LOADING SCHEME
+    // Category names (matching file prefixes):
+    // "Brand Identity" → "bi" (bi1.webp, bi2.webp, ...)
+    // "Website Design" → "wd" (wd1.webp, wd2.webp, ...)
+    // "Print Design"    → "pd" (pd1.webp, pd2.webp, ...)
+    // "Social Media"    → "sm" (sm1.webp, sm2.webp, ...)
+    // For each category we define an array of sequential numbers.
+    // Fallback: if image fails to load, a placeholder appears.
+    // --------------------------------------------------------------
+    
+    // Define how many images per category (you can adjust)
+    const categoryImageCount = {
+      "Brand Identity": 5,   // bi1.webp to bi5.webp
+      "Website Design": 4,   // wd1.webp to wd4.webp
+      "Print Design": 4,     // pd1.webp to pd4.webp
+      "Social Media": 4      // sm1.webp to sm4.webp
+    };
 
-    const categories = ["All", "Brand Identity", "UI/UX", "Print Design", "Social Media"];
+    // Generate portfolio items from local files
+    function generatePortfolioItems() {
+      const items = [];
+      
+      // Brand Identity
+      for (let i = 1; i <= categoryImageCount["Brand Identity"]; i++) {
+        items.push({
+          category: "Brand Identity",
+          src: `bi${i}.webp`,
+          alt: `Brand Identity project ${i}`
+        });
+      }
+      // Website Design (renamed from UI/UX)
+      for (let i = 1; i <= categoryImageCount["Website Design"]; i++) {
+        items.push({
+          category: "Website Design",
+          src: `wd${i}.webp`,
+          alt: `Website design project ${i}`
+        });
+      }
+      // Print Design
+      for (let i = 1; i <= categoryImageCount["Print Design"]; i++) {
+        items.push({
+          category: "Print Design",
+          src: `pd${i}.webp`,
+          alt: `Print design project ${i}`
+        });
+      }
+      // Social Media
+      for (let i = 1; i <= categoryImageCount["Social Media"]; i++) {
+        items.push({
+          category: "Social Media",
+          src: `sm${i}.webp`,
+          alt: `Social media project ${i}`
+        });
+      }
+      return items;
+    }
+
+    const portfolioItems = generatePortfolioItems();
+    
+    // Category list: "All", "Brand Identity", "Website Design", "Print Design", "Social Media"
+    const categories = ["All", "Brand Identity", "Website Design", "Print Design", "Social Media"];
     let activeCategory = "All";
 
     // DOM elements
@@ -545,10 +572,9 @@
         setTimeout(() => lightboxImg.src = '', 300);
       }
     }
-
     window.closeLightbox = closeLightbox;
 
-    // ---------- BLUR LOADING (lazy) ----------
+    // ---------- BLUR LOADING WITH FALLBACK ----------
     function createBlurLoadElement(src, alt) {
       const div = document.createElement('div');
       div.className = 'blur-load';
@@ -557,6 +583,18 @@
       img.src = src;
       img.alt = alt;
       img.loading = 'lazy';
+      
+      // Fallback: if image fails to load, replace with a placeholder
+      img.onerror = () => {
+        div.classList.add('loaded');
+        div.style.background = '#2a2a2a';
+        const placeholder = document.createElement('div');
+        placeholder.style.cssText = 'width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#888;font-size:0.8rem;background:#111;';
+        placeholder.textContent = '📷 preview';
+        div.innerHTML = '';
+        div.appendChild(placeholder);
+      };
+      
       div.appendChild(img);
       return div;
     }
@@ -571,16 +609,22 @@
     function initBlurLoading() {
       document.querySelectorAll('.blur-load').forEach(container => {
         const img = container.querySelector('img');
-        if (img && img.complete) container.classList.add('loaded');
-        else if (img) img.addEventListener('load', () => container.classList.add('loaded'));
-        else container.classList.add('loaded');
+        if (img && img.complete) {
+          container.classList.add('loaded');
+        } else if (img) {
+          img.addEventListener('load', () => container.classList.add('loaded'));
+        } else {
+          container.classList.add('loaded');
+        }
       });
     }
 
     // ---------- RENDER GALLERY ----------
     function renderGallery() {
       galleryGrid.innerHTML = '';
-      const filtered = activeCategory === "All" ? portfolioItems : portfolioItems.filter(item => item.category === activeCategory);
+      const filtered = activeCategory === "All" 
+        ? portfolioItems 
+        : portfolioItems.filter(item => item.category === activeCategory);
       
       filtered.forEach(item => {
         const gridItem = document.createElement('div');
@@ -593,7 +637,7 @@
       initBlurLoading();
     }
 
-    // ---------- BUILD TABS (fully visible on mobile due to flex-wrap) ----------
+    // ---------- BUILD TABS (fully visible on mobile) ----------
     function buildTabs() {
       filterContainer.innerHTML = '';
       categories.forEach(cat => {
@@ -611,7 +655,7 @@
       });
     }
 
-    // ---------- PRELOADER ----------
+    // ---------- PRELOADER (simulated) ----------
     window.addEventListener('DOMContentLoaded', () => {
       let progress = 0;
       const loaderBar = document.getElementById('loaderBar');
