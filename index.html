@@ -51,7 +51,7 @@
       min-height: 100vh;
     }
 
-    /* ----- 3. SIDEBAR (unchanged) ----- */
+    /* ----- 3. SIDEBAR ----- */
     .sidebar {
       width: 360px;
       height: 100vh;
@@ -196,7 +196,7 @@
       border-radius: 4px;
     }
 
-    /* filter tabs */
+    /* filter tabs - default (desktop) wrap */
     .filter-tabs {
       display: flex;
       flex-wrap: wrap;
@@ -213,6 +213,7 @@
       cursor: pointer;
       transition: all 0.2s ease;
       color: var(--text-muted);
+      white-space: nowrap;
     }
     .tab.active {
       background: var(--accent);
@@ -280,7 +281,7 @@
       opacity: 1;
     }
 
-    /* ----- 5. MODALS (lightbox only; contact modal removed) ----- */
+    /* ----- 5. LIGHTBOX MODAL ----- */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -345,7 +346,7 @@
     .loader-bar-wrap { width: 200px; height: 3px; background: #333333; border-radius: 3px; overflow: hidden; }
     .loader-bar { height: 100%; background: #ffffff; width: 0%; transition: width 0.1s; }
 
-    /* ----- 7. RESPONSIVE ----- */
+    /* ----- 7. RESPONSIVE DESIGN: categories fully visible on mobile (wrap) ----- */
     @media (max-width: 1024px) {
       .app-container { flex-direction: column; }
       .sidebar { 
@@ -370,16 +371,24 @@
       .sidebar { padding: 1.5rem; }
       .sidebar-wrapper { grid-template-columns: 1fr; gap: 1.2rem; }
       .profile-header h1 { font-size: 1.8rem; }
-      .main-content { padding: 1.8rem; }
+      .main-content { padding: 1.5rem; }
       .section-title { font-size: 1.8rem; margin-bottom: 1.2rem; }
-      .filter-tabs { 
-        flex-wrap: nowrap; 
-        overflow-x: auto; 
-        padding-bottom: 8px;
-        scrollbar-width: none;
+      
+      /* CRITICAL: categories wrap to multiple rows so all are fully visible without horizontal scroll */
+      .filter-tabs {
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 2rem;
+        overflow-x: visible;
+        justify-content: flex-start;
       }
-      .filter-tabs::-webkit-scrollbar { display: none; }
-      .tab { flex-shrink: 0; }
+      .tab {
+        padding: 8px 18px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      
       .gallery-grid { 
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
         gap: 16px; 
@@ -387,8 +396,18 @@
       .close-btn { top: 1rem; right: 1rem; width: 40px; height: 40px; }
     }
 
-    @media (max-width: 400px) {
-      .gallery-grid { grid-template-columns: 1fr; }
+    @media (max-width: 480px) {
+      .filter-tabs {
+        gap: 8px;
+      }
+      .tab {
+        padding: 6px 14px;
+        font-size: 0.75rem;
+      }
+      .gallery-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 12px;
+      }
     }
   </style>
 </head>
@@ -465,24 +484,21 @@
             <a href="#"><img src="https://api.iconify.design/simple-icons/behance.svg" alt="BE"></a>
             <a href="https://wa.me/60199083295?text=Hi%20Afiq%2C%20I%27m%20interested%20in%20working%20with%20you."><img src="https://api.iconify.design/simple-icons/whatsapp.svg" alt="WA"></a>
           </div>
-          <!-- Hire Me button now directly opens WhatsApp with a pre-filled message -->
+          <!-- Hire Me button directly to WhatsApp -->
           <a href="https://wa.me/60199083295?text=Hi%20Afiq%2C%20I%27m%20interested%20in%20working%20with%20you.%20Let%27s%20discuss%20my%20project." class="btn-primary" style="display: block; text-align: center;">📥 Hire Me →</a>
         </div>
 
       </div>
     </aside>
 
-    <!-- MAIN CONTENT – GALLERY (1:1 square + blur + tabs) -->
+    <!-- MAIN CONTENT – GALLERY -->
     <main class="main-content">
       <h2 class="section-title">Selected Works</h2>
       
-      <div class="filter-tabs" id="filterContainer">
-        <!-- tabs injected by js -->
-      </div>
+      <!-- Category tabs will be injected here -->
+      <div class="filter-tabs" id="filterContainer"></div>
 
-      <div class="gallery-grid" id="galleryGrid">
-        <!-- grid items injected -->
-      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
     </main>
 
   </div>
@@ -530,7 +546,6 @@
       }
     }
 
-    // Make closeLightbox globally available for inline onclick
     window.closeLightbox = closeLightbox;
 
     // ---------- BLUR LOADING (lazy) ----------
@@ -562,7 +577,7 @@
       });
     }
 
-    // ---------- RENDER GALLERY (grid) ----------
+    // ---------- RENDER GALLERY ----------
     function renderGallery() {
       galleryGrid.innerHTML = '';
       const filtered = activeCategory === "All" ? portfolioItems : portfolioItems.filter(item => item.category === activeCategory);
@@ -578,7 +593,7 @@
       initBlurLoading();
     }
 
-    // ---------- BUILD TABS ----------
+    // ---------- BUILD TABS (fully visible on mobile due to flex-wrap) ----------
     function buildTabs() {
       filterContainer.innerHTML = '';
       categories.forEach(cat => {
@@ -596,7 +611,7 @@
       });
     }
 
-    // ---------- PRELOADER (simulated loading) ----------
+    // ---------- PRELOADER ----------
     window.addEventListener('DOMContentLoaded', () => {
       let progress = 0;
       const loaderBar = document.getElementById('loaderBar');
@@ -613,7 +628,6 @@
         }
       }, 100);
       
-      // Initialize gallery
       buildTabs();
       renderGallery();
     });
