@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>Afiq Fahmi · Creative Designer – Portfolio</title>
   
   <!-- Google Fonts -->
@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
-    /* ----- 1. CSS VARIABLES & RESET ----- */
+    /* ----- 1. CSS VARIABLES & RESET (black & white) ----- */
     :root {
       --bg-dark: #000000;
       --bg-surface: #0a0a0a;
@@ -51,7 +51,7 @@
       min-height: 100vh;
     }
 
-    /* ----- 3. SIDEBAR ----- */
+    /* ----- 3. SIDEBAR (unchanged) ----- */
     .sidebar {
       width: 360px;
       height: 100vh;
@@ -66,7 +66,6 @@
       z-index: 10;
     }
 
-    /* Scrollbar styling */
     .sidebar::-webkit-scrollbar { width: 5px; }
     .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
@@ -174,11 +173,11 @@
     .btn-secondary { background: transparent; color: var(--text-main); border: 1px solid var(--border); margin-top: 10px; }
     .btn-secondary:hover { background: #111111; border-color: var(--text-muted); }
 
-    /* ----- 4. MAIN CONTENT & GALLERY ----- */
+    /* ----- 4. MAIN CONTENT & GALLERY (enhanced 1:1 grid + blur loading) ----- */
     .main-content {
       flex: 1;
       padding: 4rem 3rem;
-      min-width: 0; /* Prevents flex overflow */
+      min-width: 0;
     }
 
     .section-title {
@@ -197,77 +196,118 @@
       border-radius: 4px;
     }
 
+    /* filter tabs */
     .filter-tabs {
       display: flex;
+      flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
     }
     .tab {
-      padding: 10px 24px;
       background: transparent;
-      color: var(--text-muted);
       border: 1px solid var(--border);
-      border-radius: 30px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: var(--transition);
-      white-space: nowrap;
+      border-radius: 60px;
+      padding: 8px 24px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--text-muted);
     }
-    .tab:hover { border-color: var(--text-muted); color: var(--text-main); }
-    .tab.active { background: var(--accent); color: #000; border-color: var(--accent); }
+    .tab.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+    }
+    .tab:hover:not(.active) {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--text-muted);
+    }
 
+    /* 1:1 square grid with blur loading */
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 2rem;
+      gap: 28px;
     }
-
-    .gallery-item {
-      position: relative;
-      border-radius: 16px;
+    .grid-item {
+      background: #111111;
+      border-radius: 20px;
       overflow: hidden;
       aspect-ratio: 1 / 1;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
       cursor: pointer;
-      background: #111111;
-      box-shadow: var(--glass-shadow);
       border: 1px solid var(--border);
-      transition: var(--transition);
     }
-    .gallery-item img {
+    .grid-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 30px rgba(0,0,0,0.5);
+      border-color: var(--accent);
+    }
+
+    /* blur-up lazy loading */
+    .blur-load {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-color: #1a1a1a;
+    }
+    .blur-load::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      backdrop-filter: blur(16px);
+      opacity: 1;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      background: rgba(0,0,0,0.1);
+    }
+    .blur-load.loaded::before {
+      opacity: 0;
+    }
+    .blur-load img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      display: block;
+      opacity: 0;
+      transition: opacity 0.4s;
     }
-    .gallery-item:hover { border-color: var(--accent); z-index: 2; }
-    .gallery-item:hover img { transform: scale(1.08); }
+    .blur-load.loaded img {
+      opacity: 1;
+    }
 
-    /* ----- 5. MODALS ----- */
+    /* ----- 5. MODALS (lightbox only; contact modal removed) ----- */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.95);
+      background: rgba(0, 0, 0, 0.96);
+      backdrop-filter: blur(12px);
       z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: var(--transition);
+      transition: opacity 0.3s ease;
       padding: 1rem;
     }
     .modal-backdrop.show { opacity: 1; pointer-events: all; }
 
-    /* Lightbox */
     .lightbox-img {
-      max-width: 100%;
+      max-width: 90vw;
       max-height: 85vh;
       object-fit: contain;
-      border-radius: 12px;
+      border-radius: 16px;
       transform: scale(0.95);
-      transition: var(--transition);
+      transition: transform 0.3s ease;
+      border: 2px solid var(--accent);
     }
     .modal-backdrop.show .lightbox-img { transform: scale(1); }
+
     .close-btn {
       position: absolute;
       top: 2rem;
@@ -276,45 +316,16 @@
       color: #fff;
       cursor: pointer;
       z-index: 10000;
-      transition: var(--transition);
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: rgba(0,0,0,0.5);
       border-radius: 50%;
+      transition: 0.2s;
     }
     .close-btn:hover { color: var(--text-muted); transform: rotate(90deg); }
-
-    /* Contact Form Modal */
-    .contact-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      padding: 2.5rem;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 450px;
-      transform: translateY(20px);
-      transition: var(--transition);
-    }
-    .modal-backdrop.show .contact-card { transform: translateY(0); }
-    .contact-card h3 { margin-bottom: 1.5rem; font-size: 1.5rem; }
-    .input-group { margin-bottom: 1rem; }
-    .input-group input, .input-group textarea {
-      width: 100%;
-      background: #111111;
-      border: 1px solid var(--border);
-      color: #fff;
-      padding: 14px 16px;
-      border-radius: 10px;
-      font-family: inherit;
-      font-size: 16px; /* Prevents iOS zoom */
-      outline: none;
-      transition: var(--transition);
-      resize: vertical;
-    }
-    .input-group input:focus, .input-group textarea:focus { border-color: var(--accent); }
 
     /* ----- 6. PRELOADER ----- */
     .preloader {
@@ -334,9 +345,7 @@
     .loader-bar-wrap { width: 200px; height: 3px; background: #333333; border-radius: 3px; overflow: hidden; }
     .loader-bar { height: 100%; background: #ffffff; width: 0%; transition: width 0.1s; }
 
-    /* ----- 7. RESPONSIVE DESIGN ----- */
-    
-    /* Tablet & Small Desktop (Max 1024px) */
+    /* ----- 7. RESPONSIVE ----- */
     @media (max-width: 1024px) {
       .app-container { flex-direction: column; }
       .sidebar { 
@@ -345,7 +354,7 @@
         position: relative; 
         border-right: none; 
         border-bottom: 1px solid var(--border); 
-        padding: 3rem 2rem; 
+        padding: 2rem; 
       }
       .sidebar-wrapper {
         display: grid;
@@ -354,45 +363,31 @@
       }
       .sidebar-top { grid-column: 1 / -1; }
       .sidebar-bottom { grid-column: 1 / -1; margin-top: 0; }
-      .main-content { padding: 3rem 2rem; }
+      .main-content { padding: 2.5rem 2rem; }
     }
 
-    /* Mobile Phones (Max 768px) */
     @media (max-width: 768px) {
-      .sidebar { padding: 2rem 1.25rem; }
-      .sidebar-wrapper { grid-template-columns: 1fr; gap: 1.5rem; }
-      
-      .profile-header h1 { font-size: 2rem; }
-      .main-content { padding: 2rem 1.25rem; }
-      .section-title { font-size: 1.8rem; margin-bottom: 1.5rem; }
-      
-      /* Make filter tabs swipeable horizontally */
+      .sidebar { padding: 1.5rem; }
+      .sidebar-wrapper { grid-template-columns: 1fr; gap: 1.2rem; }
+      .profile-header h1 { font-size: 1.8rem; }
+      .main-content { padding: 1.8rem; }
+      .section-title { font-size: 1.8rem; margin-bottom: 1.2rem; }
       .filter-tabs { 
         flex-wrap: nowrap; 
         overflow-x: auto; 
-        padding-bottom: 10px;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none; /* Firefox */
+        padding-bottom: 8px;
+        scrollbar-width: none;
       }
-      .filter-tabs::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+      .filter-tabs::-webkit-scrollbar { display: none; }
       .tab { flex-shrink: 0; }
-      
-      /* 2-Column Grid on Mobile for better viewing */
       .gallery-grid { 
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
-        gap: 1rem; 
+        gap: 16px; 
       }
-      .gallery-item { border-radius: 12px; }
-
-      /* Modals */
-      .close-btn { top: 1rem; right: 1rem; font-size: 2rem; }
-      .contact-card { padding: 1.5rem; }
-      .contact-card h3 { font-size: 1.3rem; }
+      .close-btn { top: 1rem; right: 1rem; width: 40px; height: 40px; }
     }
-    
-    /* Tiny Phones (Max 400px) */
+
     @media (max-width: 400px) {
-      /* Fallback to single column if the phone screen is extremely small */
       .gallery-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -405,25 +400,10 @@
     <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
   </div>
 
-  <!-- LIGHTBOX -->
+  <!-- LIGHTBOX MODAL -->
   <div class="modal-backdrop" id="lightboxModal" onclick="closeLightbox(event)">
     <span class="close-btn" onclick="closeLightbox(event)">×</span>
-    <img src="" alt="" class="lightbox-img" id="lightboxImg">
-  </div>
-
-  <!-- CONTACT MODAL -->
-  <div class="modal-backdrop" id="contactModal" onclick="closeContact(event)">
-    <div class="contact-card" onclick="event.stopPropagation()">
-      <h3>Let's work together</h3>
-      <div class="input-group">
-        <input type="text" id="waName" placeholder="Your Name">
-      </div>
-      <div class="input-group">
-        <textarea id="waMessage" rows="4" placeholder="How can I help you?"></textarea>
-      </div>
-      <button class="btn-primary" onclick="sendWhatsApp()">Send via WhatsApp</button>
-      <button class="btn-secondary" onclick="closeContact(event, true)">Cancel</button>
-    </div>
+    <img src="" alt="Full preview" class="lightbox-img" id="lightboxImg">
   </div>
 
   <div class="app-container">
@@ -483,109 +463,147 @@
             <a href="#"><img src="https://api.iconify.design/simple-icons/instagram.svg" alt="IG"></a>
             <a href="#"><img src="https://api.iconify.design/simple-icons/linkedin.svg" alt="IN"></a>
             <a href="#"><img src="https://api.iconify.design/simple-icons/behance.svg" alt="BE"></a>
-            <a href="https://wa.me/60199083295"><img src="https://api.iconify.design/simple-icons/whatsapp.svg" alt="WA"></a>
+            <a href="https://wa.me/60199083295?text=Hi%20Afiq%2C%20I%27m%20interested%20in%20working%20with%20you."><img src="https://api.iconify.design/simple-icons/whatsapp.svg" alt="WA"></a>
           </div>
-          <button class="btn-primary" onclick="document.getElementById('contactModal').classList.add('show')">📥 Hire Me</button>
+          <!-- Hire Me button now directly opens WhatsApp with a pre-filled message -->
+          <a href="https://wa.me/60199083295?text=Hi%20Afiq%2C%20I%27m%20interested%20in%20working%20with%20you.%20Let%27s%20discuss%20my%20project." class="btn-primary" style="display: block; text-align: center;">📥 Hire Me →</a>
         </div>
 
       </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT – GALLERY (1:1 square + blur + tabs) -->
     <main class="main-content">
       <h2 class="section-title">Selected Works</h2>
       
       <div class="filter-tabs" id="filterContainer">
-        <!-- Tabs injected by JS -->
+        <!-- tabs injected by js -->
       </div>
 
       <div class="gallery-grid" id="galleryGrid">
-        <!-- Items injected by JS -->
+        <!-- grid items injected -->
       </div>
     </main>
 
   </div>
 
   <script>
-    /* --- DATA --- */
+    // ------------- GALLERY DATA (high-quality unsplash images, 1:1) -------------
     const portfolioItems = [
-      { category: "Brand Identity", src: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=900&h=900&fit=crop&auto=format" },
-      { category: "Brand Identity", src: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=900&h=900&fit=crop&auto=format" },
-      { category: "Brand Identity", src: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=900&h=900&fit=crop&auto=format" },
-      { category: "UI/UX", src: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=900&h=900&fit=crop&auto=format" },
-      { category: "UI/UX", src: "https://images.unsplash.com/photo-1613909207039-6b173b755cc1?w=900&h=900&fit=crop&auto=format" },
-      { category: "Print Design", src: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=900&h=900&fit=crop&auto=format" },
-      { category: "Social Media", src: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=900&h=900&fit=crop&auto=format" }
+      { category: "Brand Identity", src: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=800&fit=crop&auto=format", alt: "Bloom Cosmetics – brand identity" },
+      { category: "Brand Identity", src: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=800&h=800&fit=crop&auto=format", alt: "Nebula Festival – visual identity" },
+      { category: "Brand Identity", src: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&h=800&fit=crop&auto=format", alt: "Nomad Studio – stationery" },
+      { category: "Brand Identity", src: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&h=800&fit=crop&auto=format", alt: "Elysian Drinks – packaging" },
+      { category: "UI/UX", src: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=800&h=800&fit=crop&auto=format", alt: "Finance App – UI/UX concept" },
+      { category: "UI/UX", src: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&h=800&fit=crop&auto=format", alt: "E-commerce dashboard" },
+      { category: "UI/UX", src: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=800&fit=crop&auto=format", alt: "Mobile app wireframes" },
+      { category: "Print Design", src: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&h=800&fit=crop&auto=format", alt: "Magazine spread" },
+      { category: "Print Design", src: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&h=800&fit=crop&auto=format", alt: "Product catalog" },
+      { category: "Print Design", src: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800&h=800&fit=crop&auto=format", alt: "Brochure set" },
+      { category: "Social Media", src: "https://images.unsplash.com/photo-1613909207039-6b173b755cc1?w=800&h=800&fit=crop&auto=format", alt: "Instagram carousel" },
+      { category: "Social Media", src: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=800&fit=crop&auto=format", alt: "Facebook ad creative" },
+      { category: "Social Media", src: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=800&h=800&fit=crop&auto=format", alt: "LinkedIn banner" }
     ];
 
     const categories = ["All", "Brand Identity", "UI/UX", "Print Design", "Social Media"];
-    let activeFilter = "All";
+    let activeCategory = "All";
 
+    // DOM elements
     const filterContainer = document.getElementById('filterContainer');
     const galleryGrid = document.getElementById('galleryGrid');
     const lightboxModal = document.getElementById('lightboxModal');
     const lightboxImg = document.getElementById('lightboxImg');
-    const contactModal = document.getElementById('contactModal');
 
-    /* --- INITIALIZATION --- */
-    function initGallery() {
-      // Build Tabs
-      filterContainer.innerHTML = categories.map(cat => 
-        `<button class="tab ${cat === activeFilter ? 'active' : ''}" onclick="filterGallery('${cat}')">${cat}</button>`
-      ).join('');
-
-      // Build Grid
-      const filtered = activeFilter === "All" ? portfolioItems : portfolioItems.filter(item => item.category === activeFilter);
-      
-      galleryGrid.innerHTML = filtered.map(item => `
-        <div class="gallery-item" onclick="openLightbox('${item.src}')">
-          <img src="${item.src}" alt="Portfolio Work" loading="lazy">
-        </div>
-      `).join('');
-    }
-
-    /* --- ACTIONS --- */
-    function filterGallery(category) {
-      activeFilter = category;
-      initGallery();
-    }
-
-    function openLightbox(src) {
+    // ---------- LIGHTBOX ----------
+    function openLightbox(src, alt) {
       lightboxImg.src = src;
+      lightboxImg.alt = alt || 'Full preview';
       lightboxModal.classList.add('show');
-      document.body.style.overflow = 'hidden'; // Prevent background scrolling on mobile
+      document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox(e) {
       if (e.target.classList.contains('modal-backdrop') || e.target.classList.contains('close-btn')) {
         lightboxModal.classList.remove('show');
-        document.body.style.overflow = ''; // Restore scrolling
+        document.body.style.overflow = '';
         setTimeout(() => lightboxImg.src = '', 300);
       }
     }
 
-    function closeContact(e, force = false) {
-      if (force || e.target.classList.contains('modal-backdrop')) {
-        contactModal.classList.remove('show');
-      }
+    // Make closeLightbox globally available for inline onclick
+    window.closeLightbox = closeLightbox;
+
+    // ---------- BLUR LOADING (lazy) ----------
+    function createBlurLoadElement(src, alt) {
+      const div = document.createElement('div');
+      div.className = 'blur-load';
+      div.style.background = '#1a1a1a';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = alt;
+      img.loading = 'lazy';
+      div.appendChild(img);
+      return div;
     }
 
-    function sendWhatsApp() {
-      const name = document.getElementById('waName').value || 'Guest';
-      const msg = document.getElementById('waMessage').value;
-      const text = `Hi Afiq, I am ${name}. ${msg}`;
-      window.open(`https://wa.me/60199083295?text=${encodeURIComponent(text)}`, '_blank');
-      contactModal.classList.remove('show');
+    function attachClickHandler(element, src, alt) {
+      element.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openLightbox(src, alt);
+      });
     }
 
-    /* --- PRELOADER --- */
+    function initBlurLoading() {
+      document.querySelectorAll('.blur-load').forEach(container => {
+        const img = container.querySelector('img');
+        if (img && img.complete) container.classList.add('loaded');
+        else if (img) img.addEventListener('load', () => container.classList.add('loaded'));
+        else container.classList.add('loaded');
+      });
+    }
+
+    // ---------- RENDER GALLERY (grid) ----------
+    function renderGallery() {
+      galleryGrid.innerHTML = '';
+      const filtered = activeCategory === "All" ? portfolioItems : portfolioItems.filter(item => item.category === activeCategory);
+      
+      filtered.forEach(item => {
+        const gridItem = document.createElement('div');
+        gridItem.className = 'grid-item';
+        const blurDiv = createBlurLoadElement(item.src, item.alt);
+        gridItem.appendChild(blurDiv);
+        attachClickHandler(gridItem, item.src, item.alt);
+        galleryGrid.appendChild(gridItem);
+      });
+      initBlurLoading();
+    }
+
+    // ---------- BUILD TABS ----------
+    function buildTabs() {
+      filterContainer.innerHTML = '';
+      categories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = `tab ${activeCategory === cat ? 'active' : ''}`;
+        btn.textContent = cat;
+        btn.addEventListener('click', () => {
+          if (activeCategory === cat) return;
+          activeCategory = cat;
+          document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderGallery();
+        });
+        filterContainer.appendChild(btn);
+      });
+    }
+
+    // ---------- PRELOADER (simulated loading) ----------
     window.addEventListener('DOMContentLoaded', () => {
       let progress = 0;
       const loaderBar = document.getElementById('loaderBar');
       const preloader = document.getElementById('preloader');
       
       const interval = setInterval(() => {
-        progress += Math.floor(Math.random() * 15) + 5;
+        progress += Math.floor(Math.random() * 12) + 4;
         if (progress > 100) progress = 100;
         loaderBar.style.width = `${progress}%`;
         
@@ -594,8 +612,10 @@
           setTimeout(() => preloader.classList.add('hide'), 400);
         }
       }, 100);
-
-      initGallery();
+      
+      // Initialize gallery
+      buildTabs();
+      renderGallery();
     });
   </script>
 </body>
