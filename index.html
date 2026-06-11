@@ -3,27 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Afiq Fahmi · Creative Designer – Portfolio</title>
+  <title>Afiq Fahmi · Creative Designer – Swipe Gallery</title>
   
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
-    /* ----- 1. CSS VARIABLES & RESET (black & white) ----- */
-    :root {
-      --bg-dark: #000000;
-      --bg-surface: #0a0a0a;
-      --accent: #ffffff;
-      --accent-hover: #cccccc;
-      --text-main: #ffffff;
-      --text-muted: #888888;
-      --border: #333333;
-      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
     * {
       margin: 0;
       padding: 0;
@@ -32,18 +18,25 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-main);
+      background: #000000;
+      color: #ffffff;
       line-height: 1.6;
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
+    }
+
+    :root {
+      --bg-dark: #000000;
+      --bg-surface: #0a0a0a;
+      --accent: #ffffff;
+      --border: #333333;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     a { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; border: none; }
     img { max-width: 100%; display: block; }
 
-    /* ----- 2. DESKTOP LAYOUT ----- */
+    /* Layout */
     .app-container {
       display: flex;
       max-width: 1440px;
@@ -51,7 +44,7 @@
       min-height: 100vh;
     }
 
-    /* ----- 3. SIDEBAR ----- */
+    /* Sidebar */
     .sidebar {
       width: 360px;
       height: 100vh;
@@ -65,7 +58,6 @@
       overflow-y: auto;
       z-index: 10;
     }
-
     .sidebar::-webkit-scrollbar { width: 5px; }
     .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
@@ -74,55 +66,48 @@
       font-weight: 800;
       letter-spacing: -1px;
       margin-bottom: 0.25rem;
-      color: var(--text-main);
     }
-
     .profile-header .title {
-      color: var(--text-muted);
+      color: #888;
       font-weight: 600;
       font-size: 0.95rem;
       text-transform: uppercase;
       letter-spacing: 2px;
       margin-bottom: 1.5rem;
     }
-
     .bio {
-      color: var(--text-muted);
+      color: #888;
       font-size: 0.95rem;
       margin-bottom: 1.5rem;
       background: #111111;
       padding: 1.2rem;
       border-radius: 12px;
-      border-left: 3px solid var(--accent);
+      border-left: 3px solid #fff;
     }
-
     .contact-list { margin-bottom: 2rem; }
     .contact-item {
       display: flex;
       align-items: center;
       gap: 12px;
       font-size: 0.9rem;
-      color: var(--text-muted);
+      color: #888;
       margin-bottom: 14px;
       transition: var(--transition);
     }
-    .contact-item:hover { color: var(--accent); transform: translateX(4px); }
-    .contact-item img { width: 20px; filter: invert(1) opacity(0.7); transition: var(--transition); }
+    .contact-item:hover { color: #fff; transform: translateX(4px); }
+    .contact-item img { width: 20px; filter: invert(1) opacity(0.7); }
     .contact-item:hover img { filter: invert(1) opacity(1); }
 
-    .skills-sidebar { margin-bottom: 2rem; }
     .skill-section {
       background: #111111;
-      border: 1px solid var(--border);
+      border: 1px solid #333;
       border-radius: 16px;
       padding: 1.2rem;
       margin-bottom: 1rem;
-      transition: var(--transition);
     }
-    .skill-section:hover { border-color: var(--text-muted); }
     .skill-section h3 {
       font-size: 0.85rem;
-      color: var(--accent);
+      color: #fff;
       margin-bottom: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 1.5px;
@@ -130,13 +115,12 @@
     .skill-section ul { list-style: none; }
     .skill-section li {
       font-size: 0.85rem;
-      color: var(--text-muted);
+      color: #888;
       padding: 0.4rem 0;
       border-bottom: 1px dashed #333;
     }
-    .skill-section li:last-child { border-bottom: none; padding-bottom: 0; }
+    .skill-section li:last-child { border-bottom: none; }
 
-    .sidebar-bottom { margin-top: auto; }
     .social-links {
       display: flex;
       gap: 12px;
@@ -150,14 +134,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--border);
+      border: 1px solid #333;
       transition: var(--transition);
     }
-    .social-links a img { width: 20px; filter: invert(1) opacity(0.8); transition: var(--transition); }
-    .social-links a:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-3px); }
+    .social-links a img { width: 20px; filter: invert(1) opacity(0.8); }
+    .social-links a:hover { background: #fff; border-color: #fff; transform: translateY(-3px); }
     .social-links a:hover img { filter: invert(0); opacity: 1; }
 
-    .btn-primary, .btn-secondary {
+    .btn-primary {
       display: block;
       width: 100%;
       text-align: center;
@@ -165,21 +149,18 @@
       border-radius: 12px;
       font-weight: 600;
       font-size: 0.95rem;
+      background: #fff;
+      color: #000;
       transition: var(--transition);
     }
-    .btn-primary { background: var(--accent); color: #000; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1); }
-    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2); }
-    
-    .btn-secondary { background: transparent; color: var(--text-main); border: 1px solid var(--border); margin-top: 10px; }
-    .btn-secondary:hover { background: #111111; border-color: var(--text-muted); }
+    .btn-primary:hover { background: #ccc; transform: translateY(-2px); }
 
-    /* ----- 4. MAIN CONTENT & GALLERY (1:1 grid, blur loading) ----- */
+    /* Main Gallery */
     .main-content {
       flex: 1;
       padding: 4rem 3rem;
       min-width: 0;
     }
-
     .section-title {
       font-size: 2.5rem;
       font-weight: 800;
@@ -192,10 +173,9 @@
       content: '';
       width: 6px;
       height: 35px;
-      background: var(--accent);
+      background: #fff;
       border-radius: 4px;
     }
-
     .filter-tabs {
       display: flex;
       flex-wrap: wrap;
@@ -204,54 +184,49 @@
     }
     .tab {
       background: transparent;
-      border: 1px solid var(--border);
+      border: 1px solid #333;
       border-radius: 60px;
       padding: 8px 24px;
       font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
-      color: var(--text-muted);
+      color: #888;
       white-space: nowrap;
     }
     .tab.active {
-      background: var(--accent);
+      background: #fff;
       color: #000;
-      border-color: var(--accent);
+      border-color: #fff;
     }
     .tab:hover:not(.active) {
       background: rgba(255,255,255,0.1);
-      border-color: var(--text-muted);
+      border-color: #aaa;
     }
-
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 28px;
     }
     .grid-item {
-      background: #111111;
+      background: #111;
       border-radius: 20px;
       overflow: hidden;
       aspect-ratio: 1 / 1;
       box-shadow: 0 8px 20px rgba(0,0,0,0.3);
       transition: all 0.3s ease;
       cursor: pointer;
-      border: 1px solid var(--border);
+      border: 1px solid #333;
     }
     .grid-item:hover {
       transform: translateY(-5px);
-      box-shadow: 0 18px 30px rgba(0,0,0,0.5);
-      border-color: var(--accent);
+      border-color: #fff;
     }
 
-    /* blur-up lazy loading */
+    /* Blur loading */
     .blur-load {
       position: relative;
       width: 100%;
       height: 100%;
-      background-size: cover;
-      background-position: center;
       background-color: #1a1a1a;
     }
     .blur-load::before {
@@ -262,11 +237,8 @@
       opacity: 1;
       transition: opacity 0.4s ease;
       pointer-events: none;
-      background: rgba(0,0,0,0.1);
     }
-    .blur-load.loaded::before {
-      opacity: 0;
-    }
+    .blur-load.loaded::before { opacity: 0; }
     .blur-load img {
       width: 100%;
       height: 100%;
@@ -275,11 +247,9 @@
       opacity: 0;
       transition: opacity 0.4s;
     }
-    .blur-load.loaded img {
-      opacity: 1;
-    }
+    .blur-load.loaded img { opacity: 1; }
 
-    /* Lightbox */
+    /* Swipeable Lightbox */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -295,42 +265,84 @@
       padding: 1rem;
     }
     .modal-backdrop.show { opacity: 1; pointer-events: all; }
-
-    .lightbox-img {
+    .lightbox-container {
+      position: relative;
       max-width: 90vw;
       max-height: 85vh;
-      object-fit: contain;
-      border-radius: 16px;
-      transform: scale(0.95);
-      transition: transform 0.3s ease;
-      border: 2px solid var(--accent);
-    }
-    .modal-backdrop.show .lightbox-img { transform: scale(1); }
-
-    .close-btn {
-      position: absolute;
-      top: 2rem;
-      right: 3rem;
-      font-size: 2.5rem;
-      color: #fff;
-      cursor: pointer;
-      z-index: 10000;
-      width: 44px;
-      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0,0,0,0.5);
-      border-radius: 50%;
-      transition: 0.2s;
+      touch-action: pan-y pinch-zoom; /* prevent vertical scroll while swiping horizontally */
     }
-    .close-btn:hover { color: var(--text-muted); transform: rotate(90deg); }
+    .lightbox-img {
+      max-width: 85vw;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 16px;
+      border: 2px solid #fff;
+      transition: transform 0.2s;
+    }
+    /* Navigation arrows */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.2s;
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-btn:hover { background: rgba(255,255,255,0.4); transform: translateY(-50%) scale(1.05); }
+    .prev-btn { left: 1rem; }
+    .next-btn { right: 1rem; }
+    .close-btn {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      background: rgba(0,0,0,0.5);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+      z-index: 10001;
+    }
+    .close-btn:hover { background: rgba(255,255,255,0.2); transform: rotate(90deg); }
+    .counter {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      color: white;
+      pointer-events: none;
+      z-index: 10001;
+    }
 
     /* Preloader */
     .preloader {
       position: fixed;
       inset: 0;
-      background: var(--bg-dark);
+      background: #000;
       z-index: 10000;
       display: flex;
       flex-direction: column;
@@ -339,342 +351,286 @@
       transition: opacity 0.5s ease;
     }
     .preloader.hide { opacity: 0; pointer-events: none; }
-    .loader-text { font-size: 1.5rem; font-weight: 800; letter-spacing: 4px; margin-bottom: 20px; color: #fff; }
-    .loader-text span { color: var(--text-muted); }
-    .loader-bar-wrap { width: 200px; height: 3px; background: #333333; border-radius: 3px; overflow: hidden; }
-    .loader-bar { height: 100%; background: #ffffff; width: 0%; transition: width 0.1s; }
+    .loader-text { font-size: 1.5rem; font-weight: 800; letter-spacing: 4px; margin-bottom: 20px; }
+    .loader-bar-wrap { width: 200px; height: 3px; background: #333; border-radius: 3px; overflow: hidden; }
+    .loader-bar { height: 100%; background: #fff; width: 0%; transition: width 0.1s; }
 
     /* Responsive */
     @media (max-width: 1024px) {
       .app-container { flex-direction: column; }
-      .sidebar { 
-        width: 100%; 
-        height: auto; 
-        position: relative; 
-        border-right: none; 
-        border-bottom: 1px solid var(--border); 
-        padding: 2rem; 
-      }
-      .sidebar-wrapper {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-      }
+      .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #333; padding: 2rem; }
+      .sidebar-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
       .sidebar-top { grid-column: 1 / -1; }
       .sidebar-bottom { grid-column: 1 / -1; margin-top: 0; }
       .main-content { padding: 2.5rem 2rem; }
     }
-
     @media (max-width: 768px) {
       .sidebar { padding: 1.5rem; }
       .sidebar-wrapper { grid-template-columns: 1fr; gap: 1.2rem; }
-      .profile-header h1 { font-size: 1.8rem; }
       .main-content { padding: 1.5rem; }
-      .section-title { font-size: 1.8rem; margin-bottom: 1.2rem; }
-      .filter-tabs {
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-bottom: 2rem;
-        overflow-x: visible;
-        justify-content: flex-start;
-      }
-      .tab {
-        padding: 8px 18px;
-        font-size: 0.8rem;
-        white-space: nowrap;
-        flex-shrink: 0;
-      }
-      .gallery-grid { 
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
-        gap: 16px; 
-      }
-      .close-btn { top: 1rem; right: 1rem; width: 40px; height: 40px; }
-    }
-
-    @media (max-width: 480px) {
-      .filter-tabs { gap: 8px; }
-      .tab { padding: 6px 14px; font-size: 0.75rem; }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+      .filter-tabs { flex-wrap: wrap; gap: 8px; }
+      .tab { padding: 6px 16px; font-size: 0.75rem; }
+      .nav-btn { width: 36px; height: 36px; font-size: 1.5rem; }
+      .prev-btn { left: 0.5rem; }
+      .next-btn { right: 0.5rem; }
+      .close-btn { top: 1rem; right: 1rem; width: 36px; height: 36px; font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- PRELOADER -->
-  <div class="preloader" id="preloader">
-    <div class="loader-text">AFIQ<span>.</span></div>
-    <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
-  </div>
+<div class="preloader" id="preloader">
+  <div class="loader-text">AFIQ<span>.</span></div>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
+</div>
 
-  <!-- LIGHTBOX MODAL -->
-  <div class="modal-backdrop" id="lightboxModal" onclick="closeLightbox(event)">
-    <span class="close-btn" onclick="closeLightbox(event)">×</span>
+<!-- Swipeable Lightbox -->
+<div class="modal-backdrop" id="lightboxModal">
+  <div class="lightbox-container" id="lightboxContainer">
+    <button class="nav-btn prev-btn" id="prevLightBtn">‹</button>
     <img src="" alt="Full preview" class="lightbox-img" id="lightboxImg">
+    <button class="nav-btn next-btn" id="nextLightBtn">›</button>
+    <button class="close-btn" id="closeLightBtn">×</button>
+    <div class="counter" id="lightboxCounter"></div>
   </div>
+</div>
 
-  <div class="app-container">
-    
-    <!-- SIDEBAR (unchanged) -->
-    <aside class="sidebar">
-      <div class="sidebar-wrapper">
-        
-        <div class="sidebar-top">
-          <div class="profile-header">
-            <h1>Afiq Fahmi</h1>
-            <div class="title">Creative Designer</div>
-          </div>
-          <p class="bio">
-            👋 Focused on Branding & Digital Marketing. I help brands grow with strong visuals, content & strategy.
-          </p>
-        </div>
-
-        <div class="sidebar-middle-left">
-          <div class="contact-list">
-            <a href="tel:+60199083295" class="contact-item">
-              <img src="https://api.iconify.design/mdi/phone.svg" alt="Phone"> +60 19-908 3295
-            </a>
-            <a href="mailto:Afqfahmi0013@gmail.com" class="contact-item">
-              <img src="https://api.iconify.design/mdi/email.svg" alt="Email"> Afqfahmi0013@gmail.com
-            </a>
-            <a href="https://maps.google.com" target="_blank" class="contact-item">
-              <img src="https://api.iconify.design/mdi/map-marker.svg" alt="Location"> Setia Alam, Shah Alam
-            </a>
-          </div>
-        </div>
-
-        <div class="sidebar-middle-right">
-          <div class="skills-sidebar">
-            <div class="skill-section">
-              <h3>Design Expertise</h3>
-              <ul>
-                <li>Branding & Logo Design</li>
-                <li>Print (CMYK, bleed, cutting)</li>
-                <li>Apparel (sublimation, silkscreen)</li>
-                <li>Social Media Creative</li>
-              </ul>
-            </div>
-            <div class="skill-section">
-              <h3>Media</h3>
-              <ul>
-                <li>Photo retouching & manipulation</li>
-                <li>Video editing & color grading</li>
-                <li>Basic video shooting</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="sidebar-bottom">
-          <div class="social-links">
-            <a href="#"><img src="https://api.iconify.design/simple-icons/instagram.svg" alt="IG"></a>
-            <a href="#"><img src="https://api.iconify.design/simple-icons/linkedin.svg" alt="IN"></a>
-            <a href="#"><img src="https://api.iconify.design/simple-icons/behance.svg" alt="BE"></a>
-            <a href="https://wa.me/60199083295?text=Hi%20Afiq%2C%20I%27m%20interested%20in%20working%20with%20you."><img src="https://api.iconify.design/simple-icons/whatsapp.svg" alt="WA"></a>
-          </div>
-          <a href="https://wa.me/60199083295?text=Hi%20Afiq%2C%20I%27m%20interested%20in%20working%20with%20you.%20Let%27s%20discuss%20my%20project." class="btn-primary" style="display: block; text-align: center;">📥 Hire Me →</a>
-        </div>
-
+<div class="app-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-wrapper">
+      <div class="sidebar-top">
+        <div class="profile-header"><h1>Afiq Fahmi</h1><div class="title">Creative Designer</div></div>
+        <p class="bio">👋 Focused on Branding & Digital Marketing. I help brands grow with strong visuals, content & strategy.</p>
       </div>
-    </aside>
+      <div class="sidebar-middle-left">
+        <div class="contact-list">
+          <a href="tel:+60199083295" class="contact-item"><img src="https://api.iconify.design/mdi/phone.svg" alt=""> +60 19-908 3295</a>
+          <a href="mailto:Afqfahmi0013@gmail.com" class="contact-item"><img src="https://api.iconify.design/mdi/email.svg" alt=""> Afqfahmi0013@gmail.com</a>
+          <a href="https://maps.google.com" target="_blank" class="contact-item"><img src="https://api.iconify.design/mdi/map-marker.svg" alt=""> Setia Alam, Shah Alam</a>
+        </div>
+      </div>
+      <div class="sidebar-middle-right">
+        <div class="skill-section"><h3>Design Expertise</h3><ul><li>Branding & Logo Design</li><li>Print (CMYK, bleed, cutting)</li><li>Apparel (sublimation, silkscreen)</li><li>Social Media Creative</li></ul></div>
+        <div class="skill-section"><h3>Media</h3><ul><li>Photo retouching & manipulation</li><li>Video editing & color grading</li><li>Basic video shooting</li></ul></div>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="social-links">
+          <a href="#"><img src="https://api.iconify.design/simple-icons/instagram.svg" alt="IG"></a>
+          <a href="#"><img src="https://api.iconify.design/simple-icons/linkedin.svg" alt="IN"></a>
+          <a href="#"><img src="https://api.iconify.design/simple-icons/behance.svg" alt="BE"></a>
+          <a href="https://wa.me/60199083295?text=Hi%20Afiq%2C%20I%27m%20interested"><img src="https://api.iconify.design/simple-icons/whatsapp.svg" alt="WA"></a>
+        </div>
+        <a href="https://wa.me/60199083295?text=Hi%20Afiq%2C%20I%27m%20interested%20in%20working%20with%20you.%20Let%27s%20discuss%20my%20project." class="btn-primary">📥 Hire Me →</a>
+      </div>
+    </div>
+  </aside>
 
-    <!-- MAIN CONTENT – GALLERY WITH LOCAL IMAGES -->
-    <main class="main-content">
-      <h2 class="section-title">Selected Works</h2>
-      <div class="filter-tabs" id="filterContainer"></div>
-      <div class="gallery-grid" id="galleryGrid"></div>
-    </main>
+  <!-- Main Gallery -->
+  <main class="main-content">
+    <h2 class="section-title">Selected Works</h2>
+    <div class="filter-tabs" id="filterContainer"></div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </main>
+</div>
 
-  </div>
+<script>
+  // --------------------------------------------------------------
+  // LOCAL IMAGE LIST (bi.webp, wd.webp, pd.webp, sm.webp)
+  // --------------------------------------------------------------
+  const categoryImageCount = {
+    "Brand Identity": 5,
+    "Website Design": 4,
+    "Print Design": 4,
+    "Social Media": 4
+  };
 
-  <script>
-    // --------------------------------------------------------------
-    // LOCAL IMAGE LOADING SCHEME
-    // Category names (matching file prefixes):
-    // "Brand Identity" → "bi" (bi1.webp, bi2.webp, ...)
-    // "Website Design" → "wd" (wd1.webp, wd2.webp, ...)
-    // "Print Design"    → "pd" (pd1.webp, pd2.webp, ...)
-    // "Social Media"    → "sm" (sm1.webp, sm2.webp, ...)
-    // For each category we define an array of sequential numbers.
-    // Fallback: if image fails to load, a placeholder appears.
-    // --------------------------------------------------------------
-    
-    // Define how many images per category (you can adjust)
-    const categoryImageCount = {
-      "Brand Identity": 5,   // bi1.webp to bi5.webp
-      "Website Design": 4,   // wd1.webp to wd4.webp
-      "Print Design": 4,     // pd1.webp to pd4.webp
-      "Social Media": 4      // sm1.webp to sm4.webp
+  function generatePortfolioItems() {
+    const items = [];
+    for (let i = 1; i <= categoryImageCount["Brand Identity"]; i++) items.push({ category: "Brand Identity", src: `bi${i}.webp`, alt: `Brand Identity ${i}` });
+    for (let i = 1; i <= categoryImageCount["Website Design"]; i++) items.push({ category: "Website Design", src: `wd${i}.webp`, alt: `Website Design ${i}` });
+    for (let i = 1; i <= categoryImageCount["Print Design"]; i++) items.push({ category: "Print Design", src: `pd${i}.webp`, alt: `Print Design ${i}` });
+    for (let i = 1; i <= categoryImageCount["Social Media"]; i++) items.push({ category: "Social Media", src: `sm${i}.webp`, alt: `Social Media ${i}` });
+    return items;
+  }
+
+  const portfolioItems = generatePortfolioItems();
+  const categories = ["All", "Brand Identity", "Website Design", "Print Design", "Social Media"];
+  let activeCategory = "All";
+  let currentFilteredItems = [];
+  let currentLightboxIndex = 0;
+
+  // DOM elements
+  const filterContainer = document.getElementById('filterContainer');
+  const galleryGrid = document.getElementById('galleryGrid');
+  const lightboxModal = document.getElementById('lightboxModal');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const prevBtn = document.getElementById('prevLightBtn');
+  const nextBtn = document.getElementById('nextLightBtn');
+  const closeBtn = document.getElementById('closeLightBtn');
+  const counterEl = document.getElementById('lightboxCounter');
+
+  // ---------- LIGHTBOX NAVIGATION (swipe + buttons) ----------
+  function updateLightbox() {
+    if (!currentFilteredItems.length) return;
+    const item = currentFilteredItems[currentLightboxIndex];
+    lightboxImg.src = item.src;
+    lightboxImg.alt = item.alt;
+    counterEl.textContent = `${currentLightboxIndex + 1} / ${currentFilteredItems.length}`;
+  }
+
+  function nextImage() {
+    if (currentFilteredItems.length === 0) return;
+    currentLightboxIndex = (currentLightboxIndex + 1) % currentFilteredItems.length;
+    updateLightbox();
+  }
+
+  function prevImage() {
+    if (currentFilteredItems.length === 0) return;
+    currentLightboxIndex = (currentLightboxIndex - 1 + currentFilteredItems.length) % currentFilteredItems.length;
+    updateLightbox();
+  }
+
+  function openLightbox(index) {
+    currentLightboxIndex = index;
+    updateLightbox();
+    lightboxModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightboxModal.classList.remove('show');
+    document.body.style.overflow = '';
+    // reset to avoid stale data
+    setTimeout(() => lightboxImg.src = '', 300);
+  }
+
+  // ----- SWIPE DETECTION -----
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  function handleTouchStart(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }
+  function handleTouchEnd(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchEndX - touchStartX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) prevImage();
+      else nextImage();
+    }
+  }
+
+  // Event listeners for lightbox navigation
+  prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
+  nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
+  closeBtn.addEventListener('click', closeLightbox);
+  lightboxModal.addEventListener('click', (e) => {
+    if (e.target === lightboxModal) closeLightbox();
+  });
+  // Add swipe listeners
+  const lightboxContainer = document.getElementById('lightboxContainer');
+  lightboxContainer.addEventListener('touchstart', handleTouchStart);
+  lightboxContainer.addEventListener('touchend', handleTouchEnd);
+  // Keyboard arrows
+  document.addEventListener('keydown', (e) => {
+    if (!lightboxModal.classList.contains('show')) return;
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prevImage(); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); nextImage(); }
+    else if (e.key === 'Escape') closeLightbox();
+  });
+
+  // ---------- BLUR LOADING & RENDER ----------
+  function createBlurLoadElement(src, alt) {
+    const div = document.createElement('div');
+    div.className = 'blur-load';
+    div.style.background = '#1a1a1a';
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = alt;
+    img.loading = 'lazy';
+    img.onerror = () => {
+      div.classList.add('loaded');
+      div.style.background = '#2a2a2a';
+      const placeholder = document.createElement('div');
+      placeholder.style.cssText = 'width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#888;font-size:0.8rem;background:#111;';
+      placeholder.textContent = '📷 preview';
+      div.innerHTML = '';
+      div.appendChild(placeholder);
     };
+    div.appendChild(img);
+    return div;
+  }
 
-    // Generate portfolio items from local files
-    function generatePortfolioItems() {
-      const items = [];
-      
-      // Brand Identity
-      for (let i = 1; i <= categoryImageCount["Brand Identity"]; i++) {
-        items.push({
-          category: "Brand Identity",
-          src: `bi${i}.webp`,
-          alt: `Brand Identity project ${i}`
-        });
-      }
-      // Website Design (renamed from UI/UX)
-      for (let i = 1; i <= categoryImageCount["Website Design"]; i++) {
-        items.push({
-          category: "Website Design",
-          src: `wd${i}.webp`,
-          alt: `Website design project ${i}`
-        });
-      }
-      // Print Design
-      for (let i = 1; i <= categoryImageCount["Print Design"]; i++) {
-        items.push({
-          category: "Print Design",
-          src: `pd${i}.webp`,
-          alt: `Print design project ${i}`
-        });
-      }
-      // Social Media
-      for (let i = 1; i <= categoryImageCount["Social Media"]; i++) {
-        items.push({
-          category: "Social Media",
-          src: `sm${i}.webp`,
-          alt: `Social media project ${i}`
-        });
-      }
-      return items;
-    }
-
-    const portfolioItems = generatePortfolioItems();
-    
-    // Category list: "All", "Brand Identity", "Website Design", "Print Design", "Social Media"
-    const categories = ["All", "Brand Identity", "Website Design", "Print Design", "Social Media"];
-    let activeCategory = "All";
-
-    // DOM elements
-    const filterContainer = document.getElementById('filterContainer');
-    const galleryGrid = document.getElementById('galleryGrid');
-    const lightboxModal = document.getElementById('lightboxModal');
-    const lightboxImg = document.getElementById('lightboxImg');
-
-    // ---------- LIGHTBOX ----------
-    function openLightbox(src, alt) {
-      lightboxImg.src = src;
-      lightboxImg.alt = alt || 'Full preview';
-      lightboxModal.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox(e) {
-      if (e.target.classList.contains('modal-backdrop') || e.target.classList.contains('close-btn')) {
-        lightboxModal.classList.remove('show');
-        document.body.style.overflow = '';
-        setTimeout(() => lightboxImg.src = '', 300);
-      }
-    }
-    window.closeLightbox = closeLightbox;
-
-    // ---------- BLUR LOADING WITH FALLBACK ----------
-    function createBlurLoadElement(src, alt) {
-      const div = document.createElement('div');
-      div.className = 'blur-load';
-      div.style.background = '#1a1a1a';
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = alt;
-      img.loading = 'lazy';
-      
-      // Fallback: if image fails to load, replace with a placeholder
-      img.onerror = () => {
-        div.classList.add('loaded');
-        div.style.background = '#2a2a2a';
-        const placeholder = document.createElement('div');
-        placeholder.style.cssText = 'width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#888;font-size:0.8rem;background:#111;';
-        placeholder.textContent = '📷 preview';
-        div.innerHTML = '';
-        div.appendChild(placeholder);
-      };
-      
-      div.appendChild(img);
-      return div;
-    }
-
-    function attachClickHandler(element, src, alt) {
-      element.addEventListener('click', (e) => {
-        e.stopPropagation();
-        openLightbox(src, alt);
-      });
-    }
-
-    function initBlurLoading() {
-      document.querySelectorAll('.blur-load').forEach(container => {
-        const img = container.querySelector('img');
-        if (img && img.complete) {
-          container.classList.add('loaded');
-        } else if (img) {
-          img.addEventListener('load', () => container.classList.add('loaded'));
-        } else {
-          container.classList.add('loaded');
-        }
-      });
-    }
-
-    // ---------- RENDER GALLERY ----------
-    function renderGallery() {
-      galleryGrid.innerHTML = '';
-      const filtered = activeCategory === "All" 
-        ? portfolioItems 
-        : portfolioItems.filter(item => item.category === activeCategory);
-      
-      filtered.forEach(item => {
-        const gridItem = document.createElement('div');
-        gridItem.className = 'grid-item';
-        const blurDiv = createBlurLoadElement(item.src, item.alt);
-        gridItem.appendChild(blurDiv);
-        attachClickHandler(gridItem, item.src, item.alt);
-        galleryGrid.appendChild(gridItem);
-      });
-      initBlurLoading();
-    }
-
-    // ---------- BUILD TABS (fully visible on mobile) ----------
-    function buildTabs() {
-      filterContainer.innerHTML = '';
-      categories.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.className = `tab ${activeCategory === cat ? 'active' : ''}`;
-        btn.textContent = cat;
-        btn.addEventListener('click', () => {
-          if (activeCategory === cat) return;
-          activeCategory = cat;
-          document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          renderGallery();
-        });
-        filterContainer.appendChild(btn);
-      });
-    }
-
-    // ---------- PRELOADER (simulated) ----------
-    window.addEventListener('DOMContentLoaded', () => {
-      let progress = 0;
-      const loaderBar = document.getElementById('loaderBar');
-      const preloader = document.getElementById('preloader');
-      
-      const interval = setInterval(() => {
-        progress += Math.floor(Math.random() * 12) + 4;
-        if (progress > 100) progress = 100;
-        loaderBar.style.width = `${progress}%`;
-        
-        if (progress === 100) {
-          clearInterval(interval);
-          setTimeout(() => preloader.classList.add('hide'), 400);
-        }
-      }, 100);
-      
-      buildTabs();
-      renderGallery();
+  function attachClickHandler(element, src, alt, idx) {
+    element.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLightbox(idx);
     });
-  </script>
+  }
+
+  function initBlurLoading() {
+    document.querySelectorAll('.blur-load').forEach(container => {
+      const img = container.querySelector('img');
+      if (img && img.complete) container.classList.add('loaded');
+      else if (img) img.addEventListener('load', () => container.classList.add('loaded'));
+      else container.classList.add('loaded');
+    });
+  }
+
+  function renderGallery() {
+    galleryGrid.innerHTML = '';
+    currentFilteredItems = activeCategory === "All" 
+      ? [...portfolioItems] 
+      : portfolioItems.filter(item => item.category === activeCategory);
+    
+    currentFilteredItems.forEach((item, idx) => {
+      const gridItem = document.createElement('div');
+      gridItem.className = 'grid-item';
+      const blurDiv = createBlurLoadElement(item.src, item.alt);
+      gridItem.appendChild(blurDiv);
+      attachClickHandler(gridItem, item.src, item.alt, idx);
+      galleryGrid.appendChild(gridItem);
+    });
+    initBlurLoading();
+  }
+
+  // ---------- TABS ----------
+  function buildTabs() {
+    filterContainer.innerHTML = '';
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = `tab ${activeCategory === cat ? 'active' : ''}`;
+      btn.textContent = cat;
+      btn.addEventListener('click', () => {
+        if (activeCategory === cat) return;
+        activeCategory = cat;
+        document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderGallery();
+      });
+      filterContainer.appendChild(btn);
+    });
+  }
+
+  // ---------- PRELOADER ----------
+  window.addEventListener('DOMContentLoaded', () => {
+    let progress = 0;
+    const loaderBar = document.getElementById('loaderBar');
+    const preloader = document.getElementById('preloader');
+    const interval = setInterval(() => {
+      progress += Math.floor(Math.random() * 12) + 4;
+      if (progress > 100) progress = 100;
+      loaderBar.style.width = `${progress}%`;
+      if (progress === 100) {
+        clearInterval(interval);
+        setTimeout(() => preloader.classList.add('hide'), 400);
+      }
+    }, 100);
+    buildTabs();
+    renderGallery();
+  });
+</script>
 </body>
 </html>
