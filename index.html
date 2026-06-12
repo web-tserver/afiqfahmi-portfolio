@@ -462,7 +462,7 @@
 <script>
   // --------------------------------------------------------------
   // LOCAL IMAGE LIST (bi.webp, wd.webp, pd.webp, sm.webp)
-  // Place these .webp files in the same folder as this HTML.
+  // Place these .webp files inside the "images" folder.
   // --------------------------------------------------------------
   const categoryImageCount = {
     "Brand Identity": 5,
@@ -473,10 +473,10 @@
 
   function generatePortfolioItems() {
     const items = [];
-    for (let i = 1; i <= categoryImageCount["Brand Identity"]; i++) items.push({ category: "Brand Identity", src: `bi${i}.webp`, alt: `Brand Identity ${i}` });
-    for (let i = 1; i <= categoryImageCount["Website Design"]; i++) items.push({ category: "Website Design", src: `wd${i}.webp`, alt: `Website Design ${i}` });
-    for (let i = 1; i <= categoryImageCount["Print Design"]; i++) items.push({ category: "Print Design", src: `pd${i}.webp`, alt: `Print Design ${i}` });
-    for (let i = 1; i <= categoryImageCount["Social Media"]; i++) items.push({ category: "Social Media", src: `sm${i}.webp`, alt: `Social Media ${i}` });
+    for (let i = 1; i <= categoryImageCount["Brand Identity"]; i++) items.push({ category: "Brand Identity", src: `images/bi${i}.webp`, alt: `Brand Identity ${i}` });
+    for (let i = 1; i <= categoryImageCount["Website Design"]; i++) items.push({ category: "Website Design", src: `images/wd${i}.webp`, alt: `Website Design ${i}` });
+    for (let i = 1; i <= categoryImageCount["Print Design"]; i++) items.push({ category: "Print Design", src: `images/pd${i}.webp`, alt: `Print Design ${i}` });
+    for (let i = 1; i <= categoryImageCount["Social Media"]; i++) items.push({ category: "Social Media", src: `images/sm${i}.webp`, alt: `Social Media ${i}` });
     return items;
   }
 
