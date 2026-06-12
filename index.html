@@ -465,23 +465,26 @@
   // Place these .webp files inside the "images" folder.
   // --------------------------------------------------------------
   const categoryImageCount = {
-    "Brand Identity": 5,
-    "Website Design": 4,
-    "Print Design": 18,
-    "Social Media": 18
+    "Social Media": 18,
+    "Printing": 18,
+    "Website": 4,
+    "Brand Identity": 5
   };
 
   function generatePortfolioItems() {
     const items = [];
-    for (let i = 1; i <= categoryImageCount["Brand Identity"]; i++) items.push({ category: "Brand Identity", src: `images/bi${i}.webp`, alt: `Brand Identity ${i}` });
-    for (let i = 1; i <= categoryImageCount["Website Design"]; i++) items.push({ category: "Website Design", src: `images/wd${i}.webp`, alt: `Website Design ${i}` });
-    for (let i = 1; i <= categoryImageCount["Print Design"]; i++) items.push({ category: "Print Design", src: `images/pd${i}.webp`, alt: `Print Design ${i}` });
+    // Pushing in the new requested order so "All" displays them this way:
     for (let i = 1; i <= categoryImageCount["Social Media"]; i++) items.push({ category: "Social Media", src: `images/sm${i}.webp`, alt: `Social Media ${i}` });
+    for (let i = 1; i <= categoryImageCount["Printing"]; i++) items.push({ category: "Printing", src: `images/pd${i}.webp`, alt: `Printing ${i}` });
+    for (let i = 1; i <= categoryImageCount["Website"]; i++) items.push({ category: "Website", src: `images/wd${i}.webp`, alt: `Website ${i}` });
+    for (let i = 1; i <= categoryImageCount["Brand Identity"]; i++) items.push({ category: "Brand Identity", src: `images/bi${i}.webp`, alt: `Brand Identity ${i}` });
     return items;
   }
 
   const portfolioItems = generatePortfolioItems();
-  const categories = ["All", "Brand Identity", "Website Design", "Print Design", "Social Media"];
+  
+  // Updated order of categories
+  const categories = ["All", "Social Media", "Printing", "Website", "Brand Identity"];
   let activeCategory = "All";
   let currentFilteredItems = [];
   let currentLightboxIndex = 0;
